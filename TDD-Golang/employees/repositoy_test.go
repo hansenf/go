@@ -71,9 +71,9 @@ func TestGetEmployeesByString(t *testing.T) {
 	defer db.Close()
 	r.connectDB(db)
 	rows := sqlmock.NewRows([]string{"ID", "Name", "Age", "Address"})
-	rows.AddRow(4, "David", 29, 123456, "indonesia")
+	rows.AddRow(4, "David", 29, "indonesia")
 
-	var people = Employee{
+	var people = Employees{
 		Employee{
 			ID:      4,
 			Name:    "David",
