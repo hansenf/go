@@ -4,8 +4,8 @@ import (
 	"log"
 	"testing"
 
+	"github.com/hansenf/go/fullstack/api/models"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"github.com/victorsteven/fullstack/api/models"
 	"gopkg.in/go-playground/assert.v1"
 )
 

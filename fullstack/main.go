@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/go/fullstack/api"
+	"github.com/hansenf/go/fullstack/api"
 )
 
 func main() {
