@@ -15,7 +15,7 @@ import (
 )
 
 type MahasiswaHandler interface {
-	UpdataMahasiswa(ctx *gin.Context)
+	UpdateMahasiswa(ctx *gin.Context)
 }
 
 type mahasiswaHandler struct {
@@ -30,7 +30,7 @@ func NewMahasiswaHandler(mahasiswaService service.MahasiswaService, jwtService s
 	}
 }
 
-func (c *mahasiswaHandler) UpdataMahasiswa(ctx *gin.Context) {
+func (c *mahasiswaHandler) UpdateMahasiswa(ctx *gin.Context) {
 	updateMahasiswaRequest := dto.UpdateMahasiswaRequest{}
 	err := ctx.ShouldBind(&updateMahasiswaRequest)
 

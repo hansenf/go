@@ -41,7 +41,7 @@ func main() {
 
 	mahasiswaRoutes := server.Group("api/mahasiswa", middleware.AuthorizeJWT(jwtService))
 	{
-		mahasiswaRoutes.PUT("/:id", mahasiswaHandler.UpdataMahasiswa)
+		mahasiswaRoutes.PUT("/:id", mahasiswaHandler.UpdateMahasiswa)
 	}
 
 	checkRoutes := server.Group("api/check")

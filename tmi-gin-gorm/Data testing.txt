@@ -1,0 +1,14 @@
+{
+    "name": "fli2",
+    "password": "12345678",
+    "nomor_hp": "08972727272",
+    "email": "RM@gmail.com",
+    "url_foto": "https://images.com",
+    "nama_lengkap": "Hansen Feriandy",
+    "tanggal_lahir": "12/17/2022",
+    "jenis": "pria",
+    "university": "nim",
+    "jurusan": "IF",
+    "tahun_masuk": "2014",
+    "kota_kabupaten": "Bandung"
+}

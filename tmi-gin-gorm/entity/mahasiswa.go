@@ -19,5 +19,5 @@ type Mahasiswa struct {
 	KotaKabupaten string    `gorm:"type:varchar(255)" json:"-"`
 	IDUser        int32     `json:"id_user"`
 	CreatedAt     time.Time `json:"created_at"`
-	User          User      `gorm:"foreignkey:IDUser; constraint:onUpdate:CASCADE,onDelete:CASCADE" json:"role"`
+	User          User      `gorm:"foreignkey:ID; constraint:onUpdate:CASCADE,onDelete:CASCADE" json:"role"`
 }
