@@ -6,7 +6,6 @@ import (
 	"tmi-gin/middleware"
 	"tmi-gin/repo"
 	"tmi-gin/service"
-
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -41,7 +40,11 @@ func main() {
 
 	mahasiswaRoutes := server.Group("api/mahasiswa", middleware.AuthorizeJWT(jwtService))
 	{
+		mahasiswaRoutes.GET("/", mahasiswaHandler.All)
+		mahasiswaRoutes.POST("/", mahasiswaHandler.CreateMahasiswa)
+		mahasiswaRoutes.GET("/:id", mahasiswaHandler.FindOneMahasiswaByID)
 		mahasiswaRoutes.PUT("/:id", mahasiswaHandler.UpdateMahasiswa)
+		mahasiswaRoutes.DELETE("/:id", mahasiswaHandler.DeleteMahasiswa)
 	}
 
 	checkRoutes := server.Group("api/check")

@@ -8,7 +8,7 @@ import (
 )
 
 type MahasiswaResponse struct {
-	ID            int32              `json:"id"`
+	ID            int64              `json:"id"`
 	Name          string             `json:"name"`
 	Password      string             `json:"password"`
 	NomorHP       string             `json:"email"`
@@ -21,28 +21,52 @@ type MahasiswaResponse struct {
 	Jurusan       string             `json:"jurusan"`
 	TahunMasuk    string             `json:"tahun_masuk"`
 	KotaKabupaten string             `json:"kota_kabupaten"`
-	IDUser        int32              `json:"id_user"`
+	UserID        int64              `json:"id_user"`
 	CreatedAt     time.Time          `json:"created_at"`
 	User          _user.UserResponse `json:"user,omitempty"`
 }
 
 func NewMahasiswaResponse(m entity.Mahasiswa) MahasiswaResponse {
 	return MahasiswaResponse{
-		ID:       m.ID,
-		Name:     m.Name,
-		Password: m.Password,
-		User:     _user.NewUserResponse(m.User),
+		ID:            m.ID,
+		Name:          m.Name,
+		Password:      m.Password,
+		NomorHP:       m.NomorHP,
+		UrlFoto:       m.UrlFoto,
+		NamaLengkap:   m.NamaLengkap,
+		TanggalLahir:  m.TanggalLahir,
+		JenisKelamin:  m.JenisKelamin,
+		University:    m.University,
+		Nim:           m.Nim,
+		Jurusan:       m.Jurusan,
+		TahunMasuk:    m.TahunMasuk,
+		KotaKabupaten: m.KotaKabupaten,
+		UserID:        m.UserID,
+		CreatedAt:     m.CreatedAt,
+		User:          _user.NewUserResponse(m.User),
 	}
 }
 
-func NewMahasiswaArrayResponse(ms []entity.Mahasiswa) []MahasiswaResponse {
+func NewMahasiswaArrayResponse(v []entity.Mahasiswa) []MahasiswaResponse {
 	mRes := []MahasiswaResponse{}
-	for _, v := range ms {
+	for _, v := range v {
 		p := MahasiswaResponse{
-			ID:       v.ID,
-			Name:     v.Name,
-			Password: v.Password,
-			User:     _user.NewUserResponse(v.User),
+			ID:            v.ID,
+			Name:          v.Name,
+			Password:      v.Password,
+			NomorHP:       v.NomorHP,
+			UrlFoto:       v.UrlFoto,
+			NamaLengkap:   v.NamaLengkap,
+			TanggalLahir:  v.TanggalLahir,
+			JenisKelamin:  v.JenisKelamin,
+			University:    v.University,
+			Nim:           v.Nim,
+			Jurusan:       v.Jurusan,
+			TahunMasuk:    v.TahunMasuk,
+			KotaKabupaten: v.KotaKabupaten,
+			UserID:        v.UserID,
+			CreatedAt:     v.CreatedAt,
+			User:          _user.NewUserResponse(v.User),
 		}
 		mRes = append(mRes, p)
 	}

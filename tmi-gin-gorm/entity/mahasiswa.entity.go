@@ -3,7 +3,7 @@ package entity
 import "time"
 
 type Mahasiswa struct {
-	ID            int32     `gorm:"primary_key:auto_increment" json:"-"`
+	ID            int64     `gorm:"primary_key:auto_increment" json:"-"`
 	Name          string    `gorm:"type:varchar(255)" json:"-"`
 	Password      string    `gorm:"type:varchar(255)" json:"-"`
 	NomorHP       string    `gorm:"type:varchar(255)" json:"-"`
@@ -17,7 +17,7 @@ type Mahasiswa struct {
 	Jurusan       string    `gorm:"type:varchar(255)" json:"-"`
 	TahunMasuk    string    `gorm:"type:varchar(255)" json:"-"`
 	KotaKabupaten string    `gorm:"type:varchar(255)" json:"-"`
-	IDUser        int32     `json:"id_user"`
+	UserID        int64     `gorm:"not null" json:"-"`
 	CreatedAt     time.Time `json:"created_at"`
-	User          User      `gorm:"foreignkey:ID; constraint:onUpdate:CASCADE,onDelete:CASCADE" json:"role"`
+	User          User      `gorm:"foreignkey:UserID; constraint:onUpdate:CASCADE,onDelete:CASCADE" json:"role"`
 }
