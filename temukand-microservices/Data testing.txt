@@ -1,0 +1,15 @@
+{
+    "name": "akulaku",
+    "password": "12345678111",
+    "nomor_hp": "1111111111",
+    "email": "RM@gmail.com",
+    "url_foto": "https://images.com",
+    "nama_lengkap": "Hansen Feriandy",
+    "tanggal_lahir": "12/17/2022",
+    "jenis_kelamin": "pria",
+    "university": "unikom",
+    "nim": "10114324",
+    "jurusan": "IF",
+    "tahun_masuk": "2014",
+    "kota_kabupaten": "Bandung"
+}
