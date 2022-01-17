@@ -11,17 +11,18 @@ type UserResponse struct {
 	Email     string    `json:"email"`
 	Token     string    `json:"token,omitempty"`
 	NomorHP   string    `json:"nomor_hp"`
-	Role      string       `json:"role"`
+	Role      string    `json:"role"`
 	CreatedAt time.Time `json:"created_at"`
 }
 
 func NewUserResponse(user entity.User) UserResponse {
 	return UserResponse{
 		ID:        user.ID,
-		Email:     user.Email,
 		Name:      user.Name,
+		Email:     user.Email,
+		Token:     "",
 		NomorHP:   user.NomorHP,
-		Role:      user.Role,
+		Role:      "1",
 		CreatedAt: user.CreatedAt,
 	}
 }

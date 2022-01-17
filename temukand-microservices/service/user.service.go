@@ -29,7 +29,7 @@ func NewUserService(userRepo repo.UserRepository) UserService {
 	}
 }
 
-func (c *userService) UpdateUser(updateUserRequest dto.UpdateMahasiswaRequest) (*_user.UserResponse, error) {
+func (c *userService) UpdateUser(updateUserRequest dto.UpdateMaidRequest) (*_user.UserResponse, error) {
 	user := entity.User{}
 	err := smapping.FillStruct(&user, smapping.MapFields(&updateUserRequest))
 

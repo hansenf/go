@@ -14,46 +14,46 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type MahasiswaHandler interface {
+type MaidHandler interface {
 	All(ctx *gin.Context)
-	CreateMahasiswa(ctx *gin.Context)
-	UpdateMahasiswa(ctx *gin.Context)
-	DeleteMahasiswa(ctx *gin.Context)
-	FindOneMahasiswaByID(ctx *gin.Context)
+	CreateMaid(ctx *gin.Context)
+	UpdateMaid(ctx *gin.Context)
+	DeleteMaid(ctx *gin.Context)
+	FindOneMaidByID(ctx *gin.Context)
 }
 
-type mahasiswaHandler struct {
-	mahasiswaService service.MahasiswaService
-	jwtService       service.JWTService
+type maidHandler struct {
+	maidService service.MaidService
+	jwtService  service.JWTService
 }
 
-func NewMahasiswaHandler(mahasiswaService service.MahasiswaService, jwtService service.JWTService) MahasiswaHandler {
-	return &mahasiswaHandler{
-		mahasiswaService: mahasiswaService,
-		jwtService:       jwtService,
+func NewMaidHandler(maidService service.MaidService, jwtService service.JWTService) MaidHandler {
+	return &maidHandler{
+		maidService: maidService,
+		jwtService:  jwtService,
 	}
 }
 
-func (c *mahasiswaHandler) All(ctx *gin.Context) {
+func (c *maidHandler) All(ctx *gin.Context) {
 	authHeader := ctx.GetHeader("Authorization")
 	token := c.jwtService.ValidateToken(authHeader, ctx)
 	claims := token.Claims.(jwt.MapClaims)
 	userID := fmt.Sprintf("%v", claims["user_id"])
 
-	mahasiswas, err := c.mahasiswaService.All(userID)
+	maids, err := c.maidService.All(userID)
 	if err != nil {
 		response := response.BuildErrorResponse("Failed to process request", err.Error(), obj.EmptyObj{})
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, response)
 		return
 	}
 
-	response := response.BuildResponse(true, "OK!", mahasiswas)
+	response := response.BuildResponse(true, "OK!", maids)
 	ctx.JSON(http.StatusOK, response)
 }
 
-func (c *mahasiswaHandler) CreateMahasiswa(ctx *gin.Context) {
-	var createMahasiswaReq dto.CreateMahasiswaRequest
-	err := ctx.ShouldBind(&createMahasiswaReq)
+func (c *maidHandler) CreateMaid(ctx *gin.Context) {
+	var createMaidReq dto.CreateMaidRequest
+	err := ctx.ShouldBind(&createMaidReq)
 
 	if err != nil {
 		response := response.BuildErrorResponse("Failed to process request", err.Error(), obj.EmptyObj{})
@@ -66,7 +66,7 @@ func (c *mahasiswaHandler) CreateMahasiswa(ctx *gin.Context) {
 	claims := token.Claims.(jwt.MapClaims)
 	userID := fmt.Sprintf("%v", claims["user_id"])
 
-	res, err := c.mahasiswaService.CreateMahasiswa(createMahasiswaReq, userID)
+	res, err := c.maidService.CreateMaid(createMaidReq, userID)
 	if err != nil {
 		response := response.BuildErrorResponse("Failed to process request", err.Error(), obj.EmptyObj{})
 		ctx.AbortWithStatusJSON(http.StatusUnprocessableEntity, response)
@@ -78,10 +78,10 @@ func (c *mahasiswaHandler) CreateMahasiswa(ctx *gin.Context) {
 
 }
 
-func (c *mahasiswaHandler) FindOneMahasiswaByID(ctx *gin.Context) {
+func (c *maidHandler) FindOneMaidByID(ctx *gin.Context) {
 	id := ctx.Param("id")
 
-	res, err := c.mahasiswaService.FindOneMahasiswaByID(id)
+	res, err := c.maidService.FindOneMaidByID(id)
 	if err != nil {
 		response := response.BuildErrorResponse("Failed to process request", err.Error(), obj.EmptyObj{})
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, response)
@@ -92,7 +92,7 @@ func (c *mahasiswaHandler) FindOneMahasiswaByID(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response)
 }
 
-func (c *mahasiswaHandler) DeleteMahasiswa(ctx *gin.Context) {
+func (c *maidHandler) DeleteMaid(ctx *gin.Context) {
 	id := ctx.Param("id")
 
 	authHeader := ctx.GetHeader("Authorization")
@@ -100,7 +100,7 @@ func (c *mahasiswaHandler) DeleteMahasiswa(ctx *gin.Context) {
 	claims := token.Claims.(jwt.MapClaims)
 	userID := fmt.Sprintf("%v", claims["user_id"])
 
-	err := c.mahasiswaService.DeleteMahasiswa(id, userID)
+	err := c.maidService.DeleteMaid(id, userID)
 	if err != nil {
 		response := response.BuildErrorResponse("Failed to process request", err.Error(), obj.EmptyObj{})
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, response)
@@ -110,9 +110,9 @@ func (c *mahasiswaHandler) DeleteMahasiswa(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response)
 }
 
-func (c *mahasiswaHandler) UpdateMahasiswa(ctx *gin.Context) {
-	updateMahasiswaRequest := dto.UpdateMahasiswaRequest{}
-	err := ctx.ShouldBind(&updateMahasiswaRequest)
+func (c *maidHandler) UpdateMaid(ctx *gin.Context) {
+	updateMaidRequest := dto.UpdateMaidRequest{}
+	err := ctx.ShouldBind(&updateMaidRequest)
 
 	if err != nil {
 		response := response.BuildErrorResponse("Failed to process request", err.Error(), obj.EmptyObj{})
@@ -126,15 +126,15 @@ func (c *mahasiswaHandler) UpdateMahasiswa(ctx *gin.Context) {
 	userID := fmt.Sprintf("%v", claims["user_id"])
 
 	id, _ := strconv.ParseInt(ctx.Param("id"), 0, 64)
-	updateMahasiswaRequest.ID = id
-	mahasiswa, err := c.mahasiswaService.UpdateMahasiswa(updateMahasiswaRequest, userID)
+	updateMaidRequest.ID = id
+	maid, err := c.maidService.UpdateMaid(updateMaidRequest, userID)
 	if err != nil {
 		response := response.BuildErrorResponse("Failed to process request", err.Error(), obj.EmptyObj{})
 		ctx.AbortWithStatusJSON(http.StatusUnprocessableEntity, response)
 		return
 	}
 
-	response := response.BuildResponse(true, "OK!", mahasiswa)
+	response := response.BuildResponse(true, "OK!", maid)
 	ctx.JSON(http.StatusOK, response)
 
 }

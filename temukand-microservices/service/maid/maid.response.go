@@ -1,4 +1,4 @@
-package _mahasiswa
+package _maid
 
 import (
 	"time"
@@ -7,7 +7,7 @@ import (
 	_user "tmi-gin/service/user"
 )
 
-type MahasiswaResponse struct {
+type MaidResponse struct {
 	ID            int64              `json:"id"`
 	Name          string             `json:"name"`
 	Password      string             `json:"password"`
@@ -26,8 +26,8 @@ type MahasiswaResponse struct {
 	User          _user.UserResponse `json:"user,omitempty"`
 }
 
-func NewMahasiswaResponse(m entity.Mahasiswa) MahasiswaResponse {
-	return MahasiswaResponse{
+func NewMaidResponse(m entity.Maid) MaidResponse {
+	return MaidResponse{
 		ID:            m.ID,
 		Name:          m.Name,
 		Password:      m.Password,
@@ -47,10 +47,10 @@ func NewMahasiswaResponse(m entity.Mahasiswa) MahasiswaResponse {
 	}
 }
 
-func NewMahasiswaArrayResponse(v []entity.Mahasiswa) []MahasiswaResponse {
-	mRes := []MahasiswaResponse{}
+func NewMaidArrayResponse(v []entity.Maid) []MaidResponse {
+	mRes := []MaidResponse{}
 	for _, v := range v {
-		p := MahasiswaResponse{
+		p := MaidResponse{
 			ID:            v.ID,
 			Name:          v.Name,
 			Password:      v.Password,

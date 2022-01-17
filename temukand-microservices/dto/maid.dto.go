@@ -2,7 +2,7 @@ package dto
 
 import "time"
 
-type CreateMahasiswaRequest struct {
+type CreateMaidRequest struct {
 	Name          string `json:"name"`
 	Password      string `json:"password"`
 	NomorHP       string `json:"nomor_hp"`
@@ -18,7 +18,7 @@ type CreateMahasiswaRequest struct {
 	KotaKabupaten string `json:"kota_kabupaten"`
 }
 
-type UpdateMahasiswaRequest struct {
+type UpdateMaidRequest struct {
 	ID            int64     `json:"id"`
 	Name          string    `json:"name"`
 	Password      string    `json:"password"`

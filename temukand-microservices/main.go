@@ -6,21 +6,22 @@ import (
 	"tmi-gin/middleware"
 	"tmi-gin/repo"
 	"tmi-gin/service"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
 var (
-	db               *gorm.DB                 = config.SetupDatabaseConnection()
-	userRepo         repo.UserRepository      = repo.NewUserRepo(db)
-	mahasiswaRepo    repo.MahasiswaRepository = repo.NewMahasiswaRepo(db)
-	authService      service.AuthService      = service.NewAuthService(userRepo)
-	jwtService       service.JWTService       = service.NewJWTService()
-	userService      service.UserService      = service.NewUserService(userRepo)
-	mahasiswaService service.MahasiswaService = service.NewMahasiswaService(mahasiswaRepo)
-	authHandler      v1.AuthHandler           = v1.NewAuthHandler(authService, jwtService, userService)
-	userHandler      v1.UserHandler           = v1.NewUserHandler(userService, jwtService)
-	mahasiswaHandler v1.MahasiswaHandler      = v1.NewMahasiswaHandler(mahasiswaService, jwtService)
+	db          *gorm.DB            = config.SetupDatabaseConnection()
+	userRepo    repo.UserRepository = repo.NewUserRepo(db)
+	maidRepo    repo.MaidRepository = repo.NewMaidRepo(db)
+	authService service.AuthService = service.NewAuthService(userRepo)
+	jwtService  service.JWTService  = service.NewJWTService()
+	userService service.UserService = service.NewUserService(userRepo)
+	maidService service.MaidService = service.NewMaidService(maidRepo)
+	authHandler v1.AuthHandler      = v1.NewAuthHandler(authService, jwtService, userService)
+	userHandler v1.UserHandler      = v1.NewUserHandler(userService, jwtService)
+	maidHandler v1.MaidHandler      = v1.NewMaidHandler(maidService, jwtService)
 )
 
 func main() {
@@ -38,13 +39,13 @@ func main() {
 		userRoutes.GET("/profile", userHandler.Profile)
 	}
 
-	mahasiswaRoutes := server.Group("api/mahasiswa", middleware.AuthorizeJWT(jwtService))
+	maidRoutes := server.Group("api/maid", middleware.AuthorizeJWT(jwtService))
 	{
-		mahasiswaRoutes.GET("/", mahasiswaHandler.All)
-		mahasiswaRoutes.POST("/", mahasiswaHandler.CreateMahasiswa)
-		mahasiswaRoutes.GET("/:id", mahasiswaHandler.FindOneMahasiswaByID)
-		mahasiswaRoutes.PUT("/:id", mahasiswaHandler.UpdateMahasiswa)
-		mahasiswaRoutes.DELETE("/:id", mahasiswaHandler.DeleteMahasiswa)
+		maidRoutes.GET("/", maidHandler.All)
+		maidRoutes.POST("/", maidHandler.CreateMaid)
+		maidRoutes.GET("/:id", maidHandler.FindOneMaidByID)
+		maidRoutes.PUT("/:id", maidHandler.UpdateMaid)
+		maidRoutes.DELETE("/:id", maidHandler.DeleteMaid)
 	}
 
 	checkRoutes := server.Group("api/check")
