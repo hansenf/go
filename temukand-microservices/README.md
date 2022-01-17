@@ -1,1 +1,1 @@
-# tmi-gin-gorm
+# temukand-gin-gorm
